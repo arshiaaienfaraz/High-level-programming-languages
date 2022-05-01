@@ -1,11 +1,13 @@
-/*task:
-1. Change the character used as the exit command from q to x.
-2. Change the character used as the print command from ; to =.
-3. Add a greeting line in main():
+/*
+1. Take the calculator from the file calculator02buggy.cpp. Get it to compile. You need to find and fix a few bugs. Those bugs are not in the text in the book. Find the three logic errors deviously inserted in calculator02buggy .cpp and remove them so that the calculator produces correct results.
+2. Change the character used as the exit command from q to x.
+3. Change the character used as the print command from ; to =.
+4. Add a greeting line in main():
 "Welcome to our simple calculator.
 Please enter expressions using floating-point numbers."
-4. Improve that greeting by mentioning which operators are available and how to print and exit.
+5. Improve that greeting by mentioning which operators are available and how to print and exit.
 */
+
 #include "std_lib_facilities.h"
 
 class Token
@@ -170,34 +172,34 @@ int main()
 	cout << "Welcome to our simple calculator." << endl;
 	cout << "Please enter expressions using floating-point numbers." << endl;
 	cout << "calculator can operate for + , - , * , / then put = to calculate" << endl;
-try
-{   
-    double val = 0;
+    try
+    {   
+        double val = 0;
     
-    while (cin) 
-    {
-        Token t = ts.get();
-        if (t.kind == 'x') 
-            break; // 'x' for quit
-        if (t.kind == '=')        // '=' for "print now"
-            cout << val << '\n';
-        else
-            ts.putback(t);
-        val = expression();
+        while (cin) 
+        {
+            Token t = ts.get();
+            if (t.kind == 'x') 
+                break; // 'x' for quit
+            if (t.kind == '=')        // '=' for "print now"
+                cout << val << '\n';
+            else
+                ts.putback(t);
+            val = expression();
+        }
+        keep_window_open();
+	    return 0;
     }
-    keep_window_open();
-	return 0;
-}
-catch (exception& e) 
-{
-    cerr << "error: " << e.what() << '\n';
-    keep_window_open();
-    return 1;
-}
-catch (...) 
-{
-    cerr << "Oops: unknown exception!\n";
-    keep_window_open();
-    return 2;
-}
+    catch (exception& e) 
+    {
+        cerr << "error: " << e.what() << '\n';
+        keep_window_open();
+        return 1;
+    }
+    catch (...) 
+    {
+        cerr << "Oops: unknown exception!\n";
+        keep_window_open();
+        return 2;
+    }
 }
